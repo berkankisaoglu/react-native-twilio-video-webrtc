@@ -70,6 +70,9 @@ const propTypes = {
    */
   onParticipantAddedAudioTrack: PropTypes.func,
 
+  onParticipantAddedDataTrack: PropTypes.func,
+  onParticipantRemovedDataTrack: PropTypes.func,
+
   /**
    * Called when a audio track has been removed
    *
@@ -113,7 +116,8 @@ const propTypes = {
   /**
    * Callback that is called when stats are received (after calling getStats)
    */
-  onStatsReceived: PropTypes.func
+  onStatsReceived: PropTypes.func,
+  onMessageReceived: PropTypes.func
 }
 
 const nativeEvents = {
@@ -127,7 +131,8 @@ const nativeEvents = {
   toggleSoundSetup: 8,
   toggleRemoteSound: 9,
   releaseResource: 10,
-  toggleBluetoothHeadset: 11
+  toggleBluetoothHeadset: 11,
+  sendMessage: 12,
 }
 
 class CustomTwilioVideoView extends Component {
@@ -157,6 +162,10 @@ class CustomTwilioVideoView extends Component {
 
   flipCamera () {
     this.runCommand(nativeEvents.switchCamera, [])
+  }
+
+  sendMessage(message) {
+    this.runCommand(nativeEvents.sendMessage, [message])
   }
 
   setLocalVideoEnabled (enabled) {
@@ -217,6 +226,8 @@ class CustomTwilioVideoView extends Component {
       'onParticipantRemovedVideoTrack',
       'onParticipantAddedAudioTrack',
       'onParticipantRemovedAudioTrack',
+      'onParticipantAddedDataTrack',
+      'onParticipantRemovedDataTrack',
       'onRoomParticipantDidConnect',
       'onRoomParticipantDidDisconnect',
       'onParticipantEnabledVideoTrack',
