@@ -35,6 +35,7 @@ import com.twilio.video.CameraCapturer;
 import com.twilio.video.ConnectOptions;
 import com.twilio.video.LocalAudioTrack;
 import com.twilio.video.LocalDataTrack;
+import com.twilio.video.EncodingParameters;
 import com.twilio.video.LocalAudioTrackStats;
 import com.twilio.video.LocalParticipant;
 import com.twilio.video.LocalTrackStats;
@@ -197,10 +198,10 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
 
     private VideoConstraints buildVideoConstraints() {
         return new VideoConstraints.Builder()
-                .minVideoDimensions(VideoDimensions.CIF_VIDEO_DIMENSIONS)
-                .maxVideoDimensions(VideoDimensions.CIF_VIDEO_DIMENSIONS)
-                .minFps(5)
-                .maxFps(15)
+                .minVideoDimensions(VideoDimensions.VGA_VIDEO_DIMENSIONS)
+                .maxVideoDimensions(VideoDimensions.HD_540P_VIDEO_DIMENSIONS)
+                .minFps(15)
+                .maxFps(24)
                 .build();
     }
 
@@ -397,6 +398,8 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
         if (localDataTrack != null) {
             connectOptionsBuilder.dataTracks(Collections.singletonList(localDataTrack));
         }
+
+        connectOptionsBuilder.encodingParameters(new EncodingParameters(16, 0));
 
         room = Video.connect(getContext(), connectOptionsBuilder.build(), roomListener());
     }

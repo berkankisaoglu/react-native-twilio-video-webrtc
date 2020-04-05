@@ -335,6 +335,7 @@ RCT_EXPORT_METHOD(connect:(NSString *)accessToken roomName:(NSString *)roomName)
     }
 
     builder.roomName = roomName;
+    builder.encodingParameters = [[TVIEncodingParameters alloc] initWithAudioBitrate:16 videoBitrate:0];
   }];
 
   self.room = [TwilioVideo connectWithOptions:connectOptions delegate:self];
@@ -346,11 +347,11 @@ RCT_EXPORT_METHOD(disconnect) {
 
 -(TVIVideoConstraints*) videoConstraints {
   return [TVIVideoConstraints constraintsWithBlock:^(TVIVideoConstraintsBuilder *builder) {
-    builder.minSize = TVIVideoConstraintsSize960x540;
-    builder.maxSize = TVIVideoConstraintsSize1280x720;
+    builder.minSize = TVIVideoConstraintsSize640x480;
+    builder.maxSize = TVIVideoConstraintsSize960x540;
     builder.aspectRatio = TVIAspectRatio16x9;
-    builder.minFrameRate = TVIVideoConstraintsFrameRateNone;
-    builder.maxFrameRate = TVIVideoConstraintsFrameRateNone;
+    builder.minFrameRate = 20;
+    builder.maxFrameRate = 24;
   }];
 }
 
