@@ -63,8 +63,8 @@ import com.twilio.video.VideoConstraints;
 import com.twilio.video.VideoDimensions;
 import com.twilio.video.VideoView;
 
-import tvi.webrtc.MediaCodecVideoDecoder;
-import tvi.webrtc.MediaCodecVideoEncoder;
+import org.webrtc.MediaCodecVideoDecoder;
+import org.webrtc.MediaCodecVideoEncoder;
 import com.twilio.video.VideoCodec;
 import com.twilio.video.H264Codec;
 import com.twilio.video.Vp8Codec;
