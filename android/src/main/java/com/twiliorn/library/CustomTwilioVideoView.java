@@ -411,7 +411,7 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
         }
 
         connectOptionsBuilder.preferVideoCodecs(Collections.singletonList(videoCodec));
-        connectOptionsBuilder.encodingParameters(new EncodingParameters(16, 1048576)); // 1 * 1024 * 1024 = 1048576
+        connectOptionsBuilder.encodingParameters(new EncodingParameters(16, 1000));
 
         room = Video.connect(getContext(), connectOptionsBuilder.build(), roomListener());
     }
