@@ -63,6 +63,12 @@ import com.twilio.video.VideoConstraints;
 import com.twilio.video.VideoDimensions;
 import com.twilio.video.VideoView;
 
+import tvi.webrtc.MediaCodecVideoDecoder;
+import tvi.webrtc.MediaCodecVideoEncoder;
+import com.twilio.video.VideoCodec;
+import com.twilio.video.H264Codec;
+import com.twilio.video.Vp8Codec;
+
 import org.webrtc.voiceengine.WebRtcAudioManager;
 
 import java.lang.annotation.Retention;
@@ -381,6 +387,11 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
          * Create a VideoClient allowing you to connect to a Room
          */
         setAudioFocus(enableAudio);
+
+        //Check if H.264 is supported in this device
+        boolean isH264Supported = MediaCodecVideoDecoder.isH264HwSupported() && MediaCodecVideoEncoder.isH264HwSupported();
+        VideoCodec videoCodec = isH264Supported ? (new H264Codec()) : (new Vp8Codec());
+
         ConnectOptions.Builder connectOptionsBuilder = new ConnectOptions.Builder(this.accessToken);
 
         if (this.roomName != null) {
@@ -399,7 +410,8 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
             connectOptionsBuilder.dataTracks(Collections.singletonList(localDataTrack));
         }
 
-        connectOptionsBuilder.encodingParameters(new EncodingParameters(16, 0));
+        connectOptionsBuilder.preferVideoCodecs(Collections.singletonList(videoCodec));
+        connectOptionsBuilder.encodingParameters(new EncodingParameters(16, 1048576)); // 1 * 1024 * 1024 = 1048576
 
         room = Video.connect(getContext(), connectOptionsBuilder.build(), roomListener());
     }
