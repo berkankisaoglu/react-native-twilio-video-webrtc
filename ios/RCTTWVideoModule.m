@@ -336,7 +336,7 @@ RCT_EXPORT_METHOD(connect:(NSString *)accessToken roomName:(NSString *)roomName)
 
     builder.roomName = roomName;
     builder.preferredVideoCodecs = @[ [TVIH264Codec new] ];
-    builder.encodingParameters = [[TVIEncodingParameters alloc] initWithAudioBitrate:16 videoBitrate: 1 * 1024 * 1024];
+    builder.encodingParameters = [[TVIEncodingParameters alloc] initWithAudioBitrate:0 videoBitrate: 0];
   }];
 
   self.room = [TwilioVideo connectWithOptions:connectOptions delegate:self];
@@ -348,7 +348,7 @@ RCT_EXPORT_METHOD(disconnect) {
 
 -(TVIVideoConstraints*) videoConstraints {
   return [TVIVideoConstraints constraintsWithBlock:^(TVIVideoConstraintsBuilder *builder) {
-    builder.minSize = TVIVideoConstraintsSize640x480;
+    builder.minSize = TVIVideoConstraintsSize960x540;
     builder.maxSize = TVIVideoConstraintsSize960x540;
     builder.aspectRatio = TVIAspectRatio16x9;
     builder.minFrameRate = 20;

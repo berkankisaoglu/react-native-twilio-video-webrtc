@@ -204,7 +204,7 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
 
     private VideoConstraints buildVideoConstraints() {
         return new VideoConstraints.Builder()
-                .minVideoDimensions(VideoDimensions.VGA_VIDEO_DIMENSIONS)
+                .minVideoDimensions(VideoDimensions.HD_540P_VIDEO_DIMENSIONS)
                 .maxVideoDimensions(VideoDimensions.HD_540P_VIDEO_DIMENSIONS)
                 .minFps(15)
                 .maxFps(24)
@@ -411,7 +411,7 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
         }
 
         connectOptionsBuilder.preferVideoCodecs(Collections.singletonList(videoCodec));
-        connectOptionsBuilder.encodingParameters(new EncodingParameters(16, 1048576)); // 1 * 1024 * 1024 = 1048576
+        connectOptionsBuilder.encodingParameters(new EncodingParameters(0, 0)); // 1 * 1024 * 1024 = 1048576
 
         room = Video.connect(getContext(), connectOptionsBuilder.build(), roomListener());
     }
